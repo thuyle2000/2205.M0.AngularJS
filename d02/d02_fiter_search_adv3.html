@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>filter-search-sort</title>
+    <title>filter-search</title>
     <!-- 1. nhung thu vien angularjs 1.8 vo trang web -->
     <script src="../js/angular.min.js"></script>
 
@@ -15,17 +15,17 @@
 
 <body>
     <div class="container" ng-app="myAPP">
-        <h2>ng-filter : filter, sort Demo</h2>
+        <h2>ng-filter : custom filter Demo - version 3</h2>
         <hr>
         <div ng-controller="caseCTR">
-            
-            <input type="text" name="tenSV" id="tenSV" ng-model="tenSV" placeholder="Nhap ten sinh vien muon tim">
-            
+
+            <input type="number" name="diem" id="diem" ng-model="diem" placeholder="Nhap diem">
             <label for=""> - Sap xep theo </label>
             <select name="sort" id="sort" ng-model="sortItem">
                 <option value="id">ID</option>
                 <option value="lname">Ho</option>
                 <option value="fname">Ten</option>
+                <option value="mark">Diem</option>
             </select>
             <br> <br>
 
@@ -37,15 +37,16 @@
                         <th>Ma so</th>
                         <th>Ho</th>
                         <th>Ten</th>
+                        <th>Diem</th>
                     </tr>
                 </thead>
                 <tbody>
-                
-                    <tr ng-repeat="sv in ds | filter: tenSV | orderBy:sortItem">
+                    <tr ng-repeat="sv in ds | pass:diem  | orderBy:sortItem">
                         <td>{{$index+1}}</td>
                         <td>{{sv.id}} </td>
                         <td>{{sv.lname | uppercase}}</td>
                         <td>{{sv.fname | lowercase}}</td>
+                        <td>{{sv.mark}} </td>
                     </tr>
                 </tbody>
             </table>
@@ -55,16 +56,25 @@
     <script>
         let app = angular.module("myAPP", []);
         app.controller("caseCTR", function ($scope) {
+            $scope.diem = 0;
             //dinh nghia danh sach sinh vien, mang json
             $scope.ds = [
-                { "id": "s01", "fname": "quoc Viet", "lname": "Nguyen" },
-                { "id": "s12", "fname": "gia bao", "lname": "Nguyen" },
-                { "id": "s03", "fname": "phuoc Thinh", "lname": "Nguyen" },
-                { "id": "s40", "fname": "Le tien dung", "lname": "Nguyen" },
-                { "id": "s15", "fname": "thuy Tien", "lname": "Ma" },
-                { "id": "s06", "fname": "hung quoc Vinh", "lname": "pham" },
+                { "id": "s01", "fname": "quoc Viet", "lname": "Nguyen", "mark": 99 },
+                { "id": "s12", "fname": "gia bao", "lname": "Nguyen", "mark": 25 },
+                { "id": "s03", "fname": "phuoc Thinh", "lname": "Nguyen", "mark": 99 },
+                { "id": "s40", "fname": "Le tien dung", "lname": "Nguyen", "mark": 75 },
+                { "id": "s15", "fname": "thuy Tien", "lname": "Ma", "mark": 35 },
+                { "id": "s06", "fname": "hung quoc Vinh", "lname": "pham", "mark": 80 },
             ];
         });
+
+        app.filter("pass", function () {
+            return function (dssv, m) {
+                let item = dssv.filter(x => x.mark >= m );
+                return item;
+            };
+        });
+
     </script>
 </body>
 
