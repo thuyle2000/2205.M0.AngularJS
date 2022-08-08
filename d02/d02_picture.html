@@ -1,0 +1,21 @@
+<style>
+    .hinh {
+        width: 95%;
+        padding: 2rem;
+    }
+    .khoi-hinh{
+        text-align: center;
+    }
+</style>
+
+<h5>List of Foods</h5>
+
+<div class="row">
+    <div class="col-md-4 khoi-hinh" ng-repeat="x in ds">
+        <img src="../images/foods/{{x.image}}" alt="{{x.name}}" title="{{x.name + ', ' + x.price}} "
+            class="hinh">
+        <br>
+        <h6>{{x.name}}</h6>
+        <p>price {{x.price}}</p>
+    </div>
+</div>
