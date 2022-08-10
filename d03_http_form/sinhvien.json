@@ -1,0 +1,44 @@
+[
+    {
+        "id": "s01",
+        "fname": "quoc Viet",
+        "lname": "Nguyen",
+        "mark": 99
+    },
+    {
+        "id": "s12",
+        "fname": "gia bao",
+        "lname": "Nguyen",
+        "mark": 55
+    },
+    {
+        "id": "s03",
+        "fname": "phuoc Thinh",
+        "lname": "Nguyen",
+        "mark": 99
+    },
+    {
+        "id": "s40",
+        "fname": "Le tien dung",
+        "lname": "Nguyen",
+        "mark": 75
+    },
+    {
+        "id": "s15",
+        "fname": "thuy Tien",
+        "lname": "Ma",
+        "mark": 55
+    },
+    {
+        "id": "s51",
+        "fname": "minh tri",
+        "lname": "nguyen",
+        "mark": 39
+    },
+    {
+        "id": "s06",
+        "fname": "hung quoc Vinh",
+        "lname": "pham",
+        "mark": 80
+    }
+]

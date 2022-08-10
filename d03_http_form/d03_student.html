@@ -1,0 +1,23 @@
+<div>
+    <h4>Danh sach sinh vien</h4>
+    <table class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>So TT</th>
+                <th>Ma so</th>
+                <th>Ho </th>
+                <th>Ten </th>
+                <th>Diem KQ</th>
+            </tr>
+        </thead>
+        <tbody>              
+            <tr ng-repeat="sv in ds ">
+                <td>{{$index+1}}</td>
+                <td>{{sv.id}} </td>
+                <td>{{sv.lname | uppercase}}</td>
+                <td>{{sv.fname | uppercase}}</td>
+                <td>{{sv.mark}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
