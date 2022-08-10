@@ -1,0 +1,65 @@
+<div>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
+
+    <h4>Add New Student</h4>
+    <hr>
+
+    <form name="formADD" ng-submit="add()">
+        <div class="form-group">
+            <label for="">ID</label>
+            <input type="text" class="form-control" 
+            name="id"
+            ng-model="id" 
+            pattern="s[0-9]{2}" placeholder="sxx" required>
+
+            <!-- vung bao loi -->
+            <span class="error" ng-show="formADD.id.$error.required">ID required</span> <br>
+            <span class="error" ng-show="formADD.id.$invalid"> ID has format sxx, x:digit </span>
+        </div> <br>
+
+        <div class="form-group">
+            <label for="">First name</label>
+            <input type="text" class="form-control" 
+            name="ten"
+            ng-model="ten" 
+            placeholder="input first name" required>
+
+            <!-- vung bao loi -->
+            <span class="error" ng-show="formADD.ten.$error.required">First name is required</span> <br>
+        </div> <br>
+        
+        <div class="form-group">
+            <label for="">Last name</label>
+            <input type="text" class="form-control" 
+            name="ho"
+            ng-model="ho" 
+            placeholder="input last name" required>
+
+            <!-- vung bao loi -->
+            <span class="error" ng-show="formADD.ho.$error.required">Last name is required</span> <br>
+        </div>  <br>
+
+        <div class="form-group">
+            <label for="">Result Mark</label>
+            <input type="number" class="form-control" 
+            name="mark"
+            ng-model="mark" 
+            placeholder="input 0-100" min="0" max="100" required>
+
+            <!-- vung bao loi -->
+            <span class="error" ng-show="formADD.mark.$error.required">Mark is required</span> <br>
+            <span class="error" ng-show="formADD.mark.$invalid"> Mark must be in range 0-100 </span>
+        </div>  <br>
+
+        <div>
+            <input type="submit" value="Add Student" class="btn btn-danger"
+            ng-disabled="formADD.$pristine||(formADD.$dirty && formADD.$invalid)" >
+        </div>
+
+
+    </form>
+</div>
