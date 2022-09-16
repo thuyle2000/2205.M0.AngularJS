@@ -31,3 +31,41 @@ select * from tbStudent
 -- cung cau hoi tren, ap dung vi tu IN
 select * from tbStudent 
 	where [address] IN ('quan 7', 'quan 12')
+
+
+-- xem danh sach sinh vien co ngay sinh nhat trong thang 10
+select * from tbStudent where MONTH(birthday) = 10
+
+-- xem ds sinhvien co ngay sinh nhat sap dien ra
+select * from tbStudent 
+	where MONTH(birthday) >= MONTH(GETDATE())
+
+select id, UPPER(name) student_name, birthday 
+	from tbStudent 
+	where MONTH(birthday) >= MONTH(GETDATE())
+
+go
+
+-- tao bien chua thang hien tai
+declare @thang int
+set @thang = MONTH(GETDATE()); -- gan gia tri cho bien @thang
+select id, UPPER(name) student_name, birthday 
+	from tbStudent 
+	where MONTH(birthday) >= @thang
+go
+
+
+-- xem ds sinh vien, bao gom ma so, ho ten , ngay sinh, tuoi, gioi tinh
+select  id, [name], birthday, gender from tbStudent
+
+--a. them cot tuoi
+select  id, [name], birthday, DATEDIFF(YY, birthday, GETDATE()) [Age], gender 
+	from tbStudent
+
+--b. chuyen noi dung cot gender: 1-> male, 0-> female
+select  id, [name], birthday, DATEDIFF(YY, birthday, GETDATE()) [Age], 
+		case gender
+			when 1 then 'male'
+			else 'female'
+		end [gender]
+	from tbStudent;
