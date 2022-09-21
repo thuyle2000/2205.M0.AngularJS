@@ -41,8 +41,9 @@ INSERT tbBatch(batch_no,course, [start_date], fee ) VALUES
 ('T1.2205.M1','ACCP 7023', '19-05-2022', 1200),
 ('A1.2205.M0','Arena 7749', '01-05-2022', 1500),
 ('A1.2206.A0','ACCP 6715', '09-06-2022', 1250)
-GO
+
 SELECT * FROM tbBatch
+GO
 
 /* 
 4. tao bang chua danh sach cac mon hoc tbModule, bao gom cac cot:
@@ -114,8 +115,38 @@ INSERT tbStudent VALUES
 ('ST17','Ho Dang Viet Tien',1,'tienho@fpt.edu.vn','20-06-2003', null),
 ('ST18','Lam Vinh Hao',1,'haolam@fpt.edu.vn','22-10-2004', 'ST17'),
 ('ST19','Nguyen Phu Hao',1,'haophu@fpt.edu.vn','05-10-2003', 'ST17')
-GO
+
 
 SELECT * FROM tbStudent
+GO
 
+/* 
+6. tao bang chua diem ket qua thi cac mon hoc tbExam, bao gom cac cot:
+  ma so bai thi : so thu tu tang tu dong, bat dau la so 1, nhay 1 so - not null- khoa chinh- noncluster index,
+  ma mon hoc: chuoi 5 ky tu - not null - khoa ngoai - tham chieu du lieu cua ma mon hoc thuoc bang mon hoc, 
+  ma sinh vien: chuoi 15 ky tu - not null - khoa ngoai - tham chieu du lieu cua ma sinh vien thuoc bang sinh vien, 
+  diem ket qua: so nguyen >=0 va <=100
+*/
 
+CREATE TABLE tbExam 
+(
+	id int identity(1,1) NOT NULL PRIMARY KEY NONCLUSTERED,
+	student_id varchar(15) NOT NULL,
+	module_id varchar(5) NOT NULL,
+	mark tinyint CHECK (mark BETWEEN 0 AND 100),
+	CONSTRAINT FK_ex_student FOREIGN KEY(student_id) REFERENCES tbStudent(id),
+	CONSTRAINT FK_ex_module FOREIGN KEY(module_id) REFERENCES tbModule(id),
+)
+GO
+
+-- nhap diem ket qua thi mon C cho vai sinh vien
+INSERT tbExam (student_id, module_id, mark) VALUES
+('ST01', 'LBEP', 90),
+('ST01', 'LBEP', 50),
+('ST03', 'LBEP', 30),
+('ST03', 'LBEP', 100),
+('ST10', 'LBEP', 100),
+('ST10', 'LBEP', 55),
+('ST14', 'LBEP', 39),
+('ST14', 'LBEP', 93),
+('ST14', 'LBEP', 100)
