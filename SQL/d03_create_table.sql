@@ -91,6 +91,31 @@ CREATE TABLE tbStudent
 	dob DATE,
 	leader_id varchar(15)
 )
+
+-- Them du lieu vo bang sinh vien
+SET DATEFORMAT DMY
+INSERT tbStudent VALUES
+('ST01','Nguyen Luu Gia Bao',1,'baonguyen@gmail.com','03-09-1996', NULL),
+('ST02','Ma Hoang Thuy Tien',0,'tienma@gmail.com','02-12-2003', 'ST01'),
+('ST03','Nguyen Huu Phuoc',1,'phuocnguyen@fpt.edu.vn','25-12-2000', NULL),
+('ST04','Nguyen Phuoc Thinh',1,'thinhnguyen@fpt.edu.vn','18-09-2003', 'ST03'),
+('ST05','Nguyen Minh Tri',1,'tringuyen@fpt.edu.vn','28-10-2004', 'ST03'),
+('ST06','Pham van Phu',1,'phupham@fpt.edu.vn','02-09-2003', 'ST03'),
+('ST07','Pham Hung Quoc Vinh',1,'hungpham@fpt.edu.vn','13-09-2002', NULL),
+('ST08','Nguyen Le Tien Dung',1,'dungnguyen@fpt.edu.vn','15-08-2004', 'ST07'),
+('ST09','Ho Thong Vien',1,'vienho@fpt.edu.vn','15-04-2004', 'ST07'),
+('ST10','Ngo Quoc Viet',1,'vietngo@fpt.edu.vn','02-03-1996', NULL),
+('ST11','Luong Thanh Hop',1,'hopluong@fpt.edu.vn','02-03-2003', 'ST10'),
+('ST12','Bui Tuan Anh',1,'anhbui@fpt.edu.vn','01-01-1999', NULL),
+('ST13','Vu Dai Vinh Quang',1,'quangvu@fpt.edu.vn','01-01-2003', 'ST12'),
+('ST14','Nguyen Tien Ngoc',1,'ngocnguyen@fpt.edu.vn','13-12-2003', NULL),
+('ST15','Nguyen Minh Tri',0,'tringuyen2@fpt.edu.vn','22-11-2003', 'ST14'),
+('ST16','Vo Hung Viet Nhat',0,'nhatvo@fpt.edu.vn','22-10-2003', 'ST14'),
+('ST17','Ho Dang Viet Tien',1,'tienho@fpt.edu.vn','20-06-2003', null),
+('ST18','Lam Vinh Hao',1,'haolam@fpt.edu.vn','22-10-2004', 'ST17'),
+('ST19','Nguyen Phu Hao',1,'haophu@fpt.edu.vn','05-10-2003', 'ST17')
 GO
-GO
+
+SELECT * FROM tbStudent
+
 
