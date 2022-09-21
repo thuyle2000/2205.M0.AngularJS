@@ -150,3 +150,29 @@ INSERT tbExam (student_id, module_id, mark) VALUES
 ('ST14', 'LBEP', 39),
 ('ST14', 'LBEP', 93),
 ('ST14', 'LBEP', 100)
+GO
+
+-- nhap diem ket qua thi mon thiet ke Web cho vai sinh vien
+INSERT tbExam (student_id, module_id, mark) VALUES
+('ST01', 'HCJS', 60),
+('ST01', 'HCJS', 90),
+('ST03', 'HCJS', 60),
+('ST03', 'HCJS', 85),
+('ST10', 'HCJS', 95),
+('ST10', 'HCJS', 70),
+('ST14', 'HCJS', 30),
+('ST14', 'HCJS', 99),
+('ST14', 'HCJS', 100),
+('ST15', 'HCJS', 60),
+('ST15', 'HCJS', 75)
+
+GO
+
+SELECT * FROM tbExam
+GO
+
+
+-- 7. tao foreign key tren cot leader_id cua bang sinh vien tham chieu du cua cot id thuoc bang sinh vien (con goi la tham chieu vong )
+ALTER TABLE tbStudent
+	ADD CONSTRAINT FK_student FOREIGN KEY (leader_id) REFERENCES tbStudent(id)
+GO
