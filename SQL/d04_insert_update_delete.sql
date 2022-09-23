@@ -41,3 +41,25 @@ GO
 -- xoa bai thi co ma so 13
 DELETE FROM tbExam WHERE id=13
 GO
+
+
+-- nhap diem ket qua thi mon angular cho vai sinh vien
+INSERT tbExam (student_id, module_id, mark) VALUES
+('ST01', 'AJS', 50),
+('ST02', 'AJS', 32),
+('ST02', 'AJS', 64),
+('ST03', 'AJS', 56),
+('ST03', 'AJS', 90),
+('ST04', 'AJS', 34),
+('ST04', 'AJS', 70),
+('ST05', 'AJS', 30),
+('ST05', 'AJS', 99),
+('ST06', 'AJS', 100),
+('ST07', 'AJS', 40),
+('ST08', 'AJS', 28),
+('ST08', 'AJS', 82),
+('ST09', 'AJS', 54),
+('ST10', 'AJS', 36),
+('ST10', 'AJS', 63),
+('ST11', 'AJS', 75)
+GO
