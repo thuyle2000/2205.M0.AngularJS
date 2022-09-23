@@ -37,11 +37,9 @@ GO
 SELECT * FROM tbExam
 GO
 
-
 -- xoa bai thi co ma so 13
 DELETE FROM tbExam WHERE id=13
 GO
-
 
 -- nhap diem ket qua thi mon angular cho vai sinh vien
 INSERT tbExam (student_id, module_id, mark) VALUES
