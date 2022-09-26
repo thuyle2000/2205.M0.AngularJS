@@ -114,3 +114,20 @@ GO
 SELECT * FROM tbExam ORDER BY module_id
 SELECT COUNT(*) [no of exams] FROM tbExam GROUP BY module_id
 SELECT module_id, COUNT(*) [no of papers] FROM tbExam GROUP BY module_id
+
+-- thong ke ket qua thi cua tung mon hoc: diem cao nhat, thap nhat , binh quan, so bai thi
+SELECT * FROM tbExam ORDER BY module_id, mark
+SELECT module_id, 
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam GROUP BY module_id
+
+-- thong ke ket qua thi cua nhung mon co so luong bai thi >=10: diem cao nhat, thap nhat , binh quan, so bai thi
+SELECT module_id, 
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	GROUP BY module_id
+	HAVING COUNT(*) >=10
+	ORDER BY module_id DESC
+GO
