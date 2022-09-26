@@ -88,3 +88,22 @@ SELECT * FROM tbStudent
 -- xem ds sinh vien nam
 SELECT * FROM tbStudent WHERE gender=1
 SELECT id, fullname, email, dob FROM tbStudent WHERE gender=1
+
+-- xem ds sinh vien co ho 'Nguyen'
+SELECT * FROM tbStudent 
+SELECT * FROM tbStudent WHERE fullname LIKE 'Nguyen%'
+
+-- xem ds sinh vien co ky tu thu 2 trong email la chu 'a'
+SELECT * FROM tbStudent 
+SELECT * FROM tbStudent WHERE email LIKE '%a%'
+SELECT * FROM tbStudent WHERE email LIKE '_a%'
+
+-- xem ds sinh vien co ky tu thu 2 trong email la chu 'a' hoac 'h'
+SELECT * FROM tbStudent 
+SELECT * FROM tbStudent WHERE email LIKE '_a%' OR email LIKE '_h%'
+SELECT * FROM tbStudent WHERE email LIKE '_[ah]%'
+
+-- xem ds sinh vien co ky tu thu 2 trong email khong la chu 'a', va cung ko la chu 'h'
+SELECT * FROM tbStudent 
+SELECT * FROM tbStudent WHERE email NOT LIKE '_a%' AND email NOT LIKE '_h%'
+SELECT * FROM tbStudent WHERE email LIKE '_[^ah]%'
