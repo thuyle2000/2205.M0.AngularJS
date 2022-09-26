@@ -54,3 +54,37 @@ SELECT id, fullname,
 	DATEDIFF(YY, dob, GETDATE())  'age'
 FROM tbStudent
 GO
+
+--6. SELECT with DISTINCT
+-- xem ds sinh vien da du thi (ma sinh vien)
+SELECT * FROM tbExam
+SELECT student_id FROM tbExam 
+SELECT student_id FROM tbExam ORDER BY student_id
+SELECT DISTINCT student_id FROM tbExam ORDER BY student_id
+
+--7. SELECT WITH TOP
+-- xem ds 2 sinh vien co diem thi cao nhat cua mon LBEP
+SELECT * FROM tbExam 
+SELECT * FROM tbExam WHERE module_id LIKE 'LBEP'
+SELECT * FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY mark
+SELECT * FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY 4 DESC
+
+SELECT TOP 2 * FROM tbExam WHERE module_id LIKE 'LBEP' 
+SELECT TOP 2 * FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY 4 DESC
+SELECT TOP 2 WITH TIES * FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY 4 DESC
+
+--8. SELECT INTO
+-- Luu danh sach thi mon LBEP vo bang tbExamLBEP
+SELECT * from tbExam WHERE module_id LIKE 'LBEP'
+
+SELECT * INTO tbExamLBEP from tbExam WHERE module_id LIKE 'LBEP' -- INTO: luu kq bang tbExamLBEP
+SELECT * from tbExamLBEP
+
+
+--9. SELECT WHERE
+-- xem ds sinh vien
+SELECT * FROM tbStudent
+
+-- xem ds sinh vien nam
+SELECT * FROM tbStudent WHERE gender=1
+SELECT id, fullname, email, dob FROM tbStudent WHERE gender=1
