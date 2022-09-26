@@ -131,3 +131,49 @@ SELECT module_id,
 	HAVING COUNT(*) >=10
 	ORDER BY module_id DESC
 GO
+
+--9. GROUP BY ALL 
+SELECT module_id, 
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	WHERE module_id NOT LIKE 'LBEP'
+	GROUP BY ALL module_id 
+GO
+
+--9. GROUP BY WITH CUBE : bo sung them nhieu dong tong ket theo nhom
+SELECT module_id, student_id,
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	GROUP BY module_id, student_id 
+
+SELECT module_id, student_id,
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	GROUP BY module_id, student_id 
+	ORDER BY module_id, student_id
+GO
+
+SELECT module_id, student_id,
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	GROUP BY module_id, student_id WITH CUBE 
+GO
+
+--10. GROUP BY WITH ROLLUP : bo sung them nhieu dong tong ket theo nhom, phan cap hinh cay
+SELECT module_id, student_id,
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	GROUP BY module_id, student_id WITH ROLLUP 
+
+
+SELECT student_id, module_id, 
+	   MAX(mark) [max], MIN(mark) [min], AVG(mark) [average],
+	   COUNT(*) [no of papers] 
+	FROM tbExam 
+	GROUP BY student_id, module_id WITH ROLLUP 
+GO
