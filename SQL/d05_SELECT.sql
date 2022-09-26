@@ -107,3 +107,10 @@ SELECT * FROM tbStudent WHERE email LIKE '_[ah]%'
 SELECT * FROM tbStudent 
 SELECT * FROM tbStudent WHERE email NOT LIKE '_a%' AND email NOT LIKE '_h%'
 SELECT * FROM tbStudent WHERE email LIKE '_[^ah]%'
+GO
+
+--9. SELECT GROUP BY
+-- dem so luong sinh vien da du thi trong tung mon
+SELECT * FROM tbExam ORDER BY module_id
+SELECT COUNT(*) [no of exams] FROM tbExam GROUP BY module_id
+SELECT module_id, COUNT(*) [no of papers] FROM tbExam GROUP BY module_id
