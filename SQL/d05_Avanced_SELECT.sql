@@ -191,3 +191,15 @@ SELECT a.id, a.fullname, a.email
 GO
 
 
+--10. Xem ds sinh vien chua thi mon C (ap dung EXCEPT)
+WITH KETQUA_C AS (
+	SELECT DISTINCT a.student_id 
+			FROM tbExam [a] JOIN tbModule [b] ON a.module_id = b.id
+			WHERE b.module_name LIKE '%Lap trinh C%'),
+DS_KOTHIC AS (
+	SELECT id FROM tbStudent 
+	EXCEPT 
+	SELECT student_id FROM KETQUA_C )
+SELECT a.* FROM tbStudent [a] JOIN DS_KOTHIC [b] ON a.id = b.id
+
+GO
