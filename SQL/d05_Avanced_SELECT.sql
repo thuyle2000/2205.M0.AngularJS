@@ -68,13 +68,14 @@ SELECT diem.id,  diem.student_id, sv.fullname, diem.mark
 	WHERE module_id LIKE 'LBEP'
 
 
---5. xem ds sinh vien chua thi mon C
--- ds sv da thi mon C
+--5. xem ds sinh vien chua thi mon C (ap dung JOIN)
+-- ds sv da thi mon C (ap dung sub-query)
 SELECT * FROM tbStudent 
 	WHERE id IN (SELECT DISTINCT student_id FROM tbExam 
 					WHERE module_id LIKE (SELECT id FROM tbModule 
 													WHERE module_name LIKE '%lap trinh C%'))
 
+-- ds sv da thi mon C (ap dung inner JOIN)
 SELECT DISTINCT sv.*
 	FROM (tbStudent [sv] JOIN tbExam [diem] ON sv.id = diem.student_id) 
 						 JOIN tbModule [mon] ON mon.id = diem.module_id
@@ -82,7 +83,7 @@ SELECT DISTINCT sv.*
 GO
 
 
--- ds sv chua thi mon C
+-- ds sv chua thi mon C (ap dung LEFT-JOIN)
 -- ds sv da thi (mark <> null) va chua thi mon C (mark=null)
 SELECT  d.fullname, c.*  from tbStudent [d] LEFT JOIN  
 	(SELECT a.id, b.module_name,  a.mark, a.student_id 
@@ -126,3 +127,25 @@ SELECT a.*,b.fullname [leader_name]
 	FROM tbStudent [a] LEFT JOIN tbStudent [b] ON 
 	         a.leader_id = b.id
 GO
+
+--7. Xem ds sinh vien chua thi mon C (ap dung CTE)
+WITH KETQUA_C AS
+(SELECT  DISTINCT a.student_id FROM tbExam [a] JOIN tbModule [b] ON a.module_id = b.id
+		 WHERE b.module_name LIKE '%Lap trinh C%')
+SELECT a.* 
+	FROM tbStudent [a] LEFT JOIN KETQUA_C [b] ON a.id=b.student_id 
+	WHERE b.student_id IS NULL
+GO
+
+
+
+
+
+-- dem sv thi dau va rot mon lap trinh C
+--ds sv thi dau
+SELECT student_id, mark FROM tbExam WHERE mark >=40 ORDER BY student_id
+
+--ds sv thi rot
+SELECT student_id, mark FROM tbExam WHERE mark <40 ORDER BY student_id
+
+
