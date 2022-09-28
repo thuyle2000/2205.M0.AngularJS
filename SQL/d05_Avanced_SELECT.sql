@@ -138,14 +138,27 @@ SELECT a.*
 GO
 
 
-
-
-
--- dem sv thi dau va rot mon lap trinh C
+-- dem sv thi dau va rot mon lap trinh C (UNION)
 --ds sv thi dau
-SELECT student_id, mark FROM tbExam WHERE mark >=40 ORDER BY student_id
+SELECT student_id, mark FROM tbExam 
+		WHERE mark >=40 AND  module_id='LBEP' ORDER BY student_id
 
 --ds sv thi rot
-SELECT student_id, mark FROM tbExam WHERE mark <40 ORDER BY student_id
+SELECT student_id, mark FROM tbExam 
+	WHERE mark <40 AND module_id ='LBEP'ORDER BY student_id
 
+--dem so luot thi dau mon lap trinh C
+SELECT 'Pass C', COUNT(*) [no. of papers]  FROM tbExam 
+		WHERE mark >=40 AND  module_id='LBEP'
 
+--dem so luot thi rot mon lap trinh C
+SELECT 'Fail C', COUNT(*) [no. of papers]  FROM tbExam 
+		WHERE mark <40 AND  module_id='LBEP'
+
+/*  dem so luot thi dau va rot mon lap trinh C  (UNION)  */
+SELECT 'Pass C', COUNT(*) [no. of papers]  FROM tbExam 
+		WHERE mark >=40 AND  module_id='LBEP'
+UNION
+SELECT 'Fail C', COUNT(*) [no. of papers]  FROM tbExam 
+		WHERE mark <40 AND  module_id='LBEP'
+GO
