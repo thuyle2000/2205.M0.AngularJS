@@ -138,7 +138,7 @@ SELECT a.*
 GO
 
 
--- dem sv thi dau va rot mon lap trinh C (UNION)
+--8. dem sv thi dau va rot mon lap trinh C (UNION)
 --ds sv thi dau
 SELECT student_id, mark FROM tbExam 
 		WHERE mark >=40 AND  module_id='LBEP' ORDER BY student_id
@@ -162,3 +162,32 @@ UNION
 SELECT 'Fail C', COUNT(*) [no. of papers]  FROM tbExam 
 		WHERE mark <40 AND  module_id='LBEP'
 GO
+
+
+--9. Xem ds sv thi du 2 mon Lap trinh C (LBEP) va Angular (AJS) (ap dung INTERSECT)
+--ds sv thi mon C
+SELECT student_id, mark FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY student_id
+SELECT student_id FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY student_id
+SELECT DISTINCT student_id FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY student_id
+
+--ds sv thi mon Thiet ke WEB
+SELECT student_id, mark FROM tbExam WHERE module_id LIKE 'AJS' ORDER BY student_id
+SELECT student_id FROM tbExam WHERE module_id LIKE 'AJS' ORDER BY student_id
+SELECT DISTINCT student_id FROM tbExam WHERE module_id LIKE 'AJS' ORDER BY student_id
+
+--ds sv thi mon C, AJS 
+SELECT DISTINCT student_id FROM tbExam WHERE module_id LIKE 'LBEP' ORDER BY student_id
+SELECT DISTINCT student_id FROM tbExam WHERE module_id LIKE 'AJS' ORDER BY student_id
+
+--ds sv thi du 2 mon C va AJS 
+WITH CTE_CandAJS AS
+(
+SELECT DISTINCT student_id FROM tbExam WHERE module_id LIKE 'LBEP' 
+INTERSECT
+SELECT DISTINCT student_id FROM tbExam WHERE module_id LIKE 'AJS'
+)
+SELECT a.id, a.fullname, a.email 
+	FROM tbStudent [a] JOIN CTE_CandAJS [b] ON a.id = b.student_id
+GO
+
+
