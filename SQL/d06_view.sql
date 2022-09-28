@@ -32,3 +32,39 @@ GO
 
 -- test view: xem ket qua thi voi day du thong tin ho ten va ten mon thi
 SELECT * FROM vwExam
+
+--5. Them 1 nu sinh vo view nu sinh
+SELECT * FROM vwSchoolGirl
+INSERT vwSchoolGirl VALUES
+('ST30','H`nie', 0, 'hnie@gmail.com','1998-07-30', 'ST14')
+
+SELECT * FROM vwSchoolGirl
+SELECT * FROM tbStudent
+GO
+
+--5. Sua nam sinh cua nu sinh 'Nguyen Minh Tri' co ma so sv la ST15 thanh '1998-06-15'
+UPDATE vwSchoolGirl SET dob='1998-06-15' WHERE id='ST15'
+
+SELECT * FROM vwSchoolGirl
+SELECT * FROM tbStudent
+GO
+
+--6. xoa du lieu sinh vien 'H`nie' trong view nu sinh 
+DELETE FROM vwSchoolGirl WHERE id='ST30'
+
+SELECT * FROM vwSchoolGirl
+SELECT * FROM tbStudent
+GO
+
+--7. Sua lai phan dinh nghia view nu sinh: bo sung them cot tuoi, bo cot gioi tinh
+ALTER VIEW vwSchoolGirl AS
+	SELECT id, fullname 'ho ten', email, 
+		   dob 'ngay sinh', DATEDIFF(YY,dob, GETDATE()) 'tuoi', 
+		   leader_id [truong nhom] 
+	FROM tbStudent 
+	WHERE gender=0
+GO
+
+-- Test lai view nu sinh
+SELECT * FROM vwSchoolGirl
+GO
