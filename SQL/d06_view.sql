@@ -68,3 +68,71 @@ GO
 -- Test lai view nu sinh
 SELECT * FROM vwSchoolGirl
 GO
+
+--8. Bo view nu sinh
+DROP VIEW vwSchoolGirl
+GO
+ 
+--9. Xem dinh nghia view [vwSchoolBoy]
+sp_helptext [vwSchoolBoy]
+GO
+
+--9. Xem dinh nghia view [vwExam]
+sp_helptext [vwExam]
+GO
+
+
+--10. Them 1 nu sinh vo view nam sinh vwSchoolBoy
+SELECT * FROM vwSchoolBoy
+INSERT vwSchoolBoy VALUES
+('ST30','H`nie', 0, 'hnie@gmail.com','1998-07-30', 'ST14')
+
+SELECT * FROM vwSchoolBoy	-- ko thay nu sinh moi
+SELECT * FROM tbStudent		-- nhin thay nu sinh moi
+GO
+
+--11. Bo sung WITH CHECK OPTION trong dn view de ngan chan viec cap nhat du lieu vo view ko hop le (trai voi dk WHERE)
+ALTER VIEW vwSchoolBoy AS
+	SELECT * FROM tbStudent WHERE gender=1
+	WITH CHECK OPTION;
+GO
+
+/* kiem thu tinh nang cua CHECK OPTION: 
+	them nam sinh vo view nam sinh => Succeed.
+	them nu sinh vo view nam sinh => ERROR !
+ */
+ -- them nam sinh vo view [vwSchoolBoy]
+ SELECT * FROM vwSchoolBoy
+ INSERT vwSchoolBoy VALUES
+ ('ST31','Ta Duy Anh', 1, 'anhta@fpt.edu.vn','1977-03-29','ST12' )
+ SELECT * FROM vwSchoolBoy
+ GO
+
+ -- them nu sinh vo view [vwSchoolBoy] : FAIL !!!
+ INSERT vwSchoolBoy VALUES
+ ('ST32','Do My Linh', 0, 'linhdo@fpt.edu.vn','2000-03-29','ST12' )
+ SELECT * FROM vwSchoolBoy
+ SELECT * FROM tbStudent
+ GO
+
+
+ -- xem dinh nghia cua vwExam
+ sp_helptext vwExam
+ GO
+
+ --11. Bo sung [WITH SCHEMABINDING] cho view vwExam de cam viec thay doi cau truc hoac xoa bo cac base table hien dien trong dinh nghia view
+ ALTER VIEW [vwExam] WITH SCHEMABINDING AS
+	SELECT a.id, 
+		   a.student_id, b.fullname, a.module_id, c.module_name, 
+		   a.mark
+		   FROM dbo.tbExam [a] JOIN dbo.tbStudent [b] ON a.student_id=b.id
+					       JOIN dbo.tbModule [c] ON a.module_id= c.id
+		   
+GO
+
+-- kiem tra tinh nang cua [WITH SCHEMABINDING]:
+-- thu xoa bang tbExam : ERROR !!! 
+DROP TABLE tbExam	-- Cannot DROP TABLE 'tbExam' because it is being referenced by object 'vwExam'
+
+SELECT * FROM tbExam
+GO
