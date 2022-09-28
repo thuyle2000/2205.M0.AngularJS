@@ -108,5 +108,21 @@ SELECT DISTINCT d.fullname,c.module_name,  c.student_id
 			WHERE module_name LIKE '%Lap trinh C%') [c]
 	ON d.id = c.student_id
 	WHERE c.mark is NOT NULL
+GO
 
 
+--6. xem ds sinh vien , bao gom cot ho ten cua truong nhom (SELF-JOIN)
+	-- xem ds sv (bao gom ma truong nhom leader_id) 
+SELECT * FROM tbStudent
+
+	-- xem ds sv (bao gom ma truong nhom leader_id, va ho ten truong nhom)  : SELF-JOIN
+	-- ds ko co leader (vi leader_id = null)
+SELECT a.*,b.fullname [leader_name] 
+	FROM tbStudent [a] JOIN tbStudent [b] ON 
+	         a.leader_id = b.id
+
+	-- ds co leader (ap dung LEFT-JOIN)
+SELECT a.*,b.fullname [leader_name] 
+	FROM tbStudent [a] LEFT JOIN tbStudent [b] ON 
+	         a.leader_id = b.id
+GO
