@@ -94,6 +94,49 @@ GO
   exec up_ChangeFee 'AJS', 160
   GO
 
- -- test case 1: doi hoc phi mon DDD -> 50 (don gia default)
+ -- test case 2: doi hoc phi mon DDD -> 50 (don gia default)
   exec up_ChangeFee 'DDD'
+  GO
+
+  /*=================================================
+	4. tao stored procedure [up_ChangeHour], thay doi 'tong so gio hoc' cua 'mon hoc bat ky'
+			=> store co 2 tham so input: ten mon hoc va tong so gio hoc moi,
+			            1 tham so output: tong so mon hoc da duoc thay doi gio hoc
+			=> thuc hien:
+					- in ra thong tin cua cac mon hoc truoc khi thay doi thoi gian hoc
+					- cap nhat thoi gian hoc moi (co the tang hoac giam)
+					- in lai thong tin cua mon hoc sau khi thay doi thoi gian hoc
+  ==================================================*/
+CREATE PROC [up_ChangeHour]
+		@TenMH varchar(30) ,	-- tham so thu 1
+		@TongGio smallInt ,		-- tham so thu 2
+		@TongMH int OUTPUT			-- tham so thu 3  : chua so luong mon hoc da duoc thay doi gio hoc
+  AS
+  BEGIN
+	-- in ra thong tin cua cac mon hoc truoc khi thay doi thoi gian hoc
+	SELECT * FROM tbModule
+
+	-- cap nhat thoi gian hoc moi (co the tang hoac giam)
+	UPDATE tbModule SET hours +=@TongGio WHERE module_name LIKE '%'+ @TenMH +'%'
+
+	-- cap nhat bien dem tong so dong trong bang tbModule bi thay doi do lenh UPDATE
+	SET @TongMH = @@ROWCOUNT
+
+	-- in ra thong tin cua cac mon hoc sau khi thay doi thoi gian hoc
+	SELECT * FROM tbModule
+  END
+  GO
+
+  SELECT * FROM tbModule
+
+   -- test case 1:  tang gio hoc mon Angular them 6h
+  DECLARE @soMH tinyint
+  EXEC up_ChangeHour 'angular', 6, @soMH OUTPUT
+  SELECT @soMH 'So Mon Hoc da duoc thay doi gio hoc'
+  GO
+
+  -- test case 2:  giam gio hoc cua cac mon thiet ke Web xuong 4h
+  DECLARE @soMH tinyint
+  EXEC up_ChangeHour 'web', -4, @soMH OUTPUT
+  SELECT @soMH 'So Mon Hoc da duoc thay doi gio hoc'
   GO
