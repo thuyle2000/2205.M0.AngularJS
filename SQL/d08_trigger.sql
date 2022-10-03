@@ -151,3 +151,9 @@ BEGIN
 	print 'Da xoa thong tin sinh vien va cac du lieu lien quan !'
 END
 GO
+
+-- Test case : sau khi tao instead of trigger: xoa sv cu [ST02] da co bai thi luu trong he thong : ok !!!
+SELECT * FROM tbStudent
+DELETE FROM tbStudent WHERE id LIKE 'ST02'
+SELECT * FROM tbStudent
+GO
