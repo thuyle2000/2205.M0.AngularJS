@@ -52,9 +52,9 @@ INSERT tbStudent VALUES
 ('ST40','Pham Van A', 1, 'apham@gmail.com','2000-08-15','ST14','T1.2205.M0')
 GO
 
-/*-----------------*/
-/*  INSERT TRIGGER */
-/*-----------------*/
+/*------------------------*/
+/*  AFTER INSERT TRIGGER  */
+/*------------------------*/
 -- ngan chan viec cho dang ky qua nhieu vo 1 lop hoc vuot qua kha nang cua co so vat chat cho phep => tao trigger insert/update tren bang Sinh vien
 CREATE TRIGGER tgStudentBatch 
    ON  tbStudent 
@@ -93,9 +93,9 @@ INSERT tbStudent VALUES
 GO
 
 
-/*-----------------*/
-/*  UPDATE TRIGGER */
-/*-----------------*/
+/*------------------------*/
+/*  AFTER UPDATE TRIGGER  */
+/*------------------------*/
 -- khong cho phep thay ten khoa hoc trong bang lop hoc
 CREATE TRIGGER tgBatchCourse 
    ON  tbBatch 
@@ -116,3 +116,38 @@ SELECT * FROM tbBatch
 -- Test case 2: sua si so lop hoc : OK
 UPDATE tbBatch SET capacity=6 WHERE batch_no = 'A1.2206.A0'
 SELECT * FROM tbBatch
+
+
+
+/*-------------------------------------*/
+/*  INSTEAD OF DELETE TRIGGER          */
+/*  thuc hien thay the cho lenh DELETE */
+/*-------------------------------------*/
+-- vi du, xoa sv moi : OK
+SELECT * FROM tbStudent
+DELETE FROM tbStudent WHERE id LIKE 'ST41'
+SELECT * FROM tbStudent
+
+-- tuy nhien, xoa sv cu da co bai thi luu trong he thong : LOI !!!
+SELECT * FROM tbStudent
+DELETE FROM tbStudent WHERE id LIKE 'ST02'
+SELECT * FROM tbStudent
+GO
+
+--nhung, neu muon xoa sv va cac bai thi co lien quan => INSTEAD OF DELETE 
+CREATE TRIGGER tgDeleteStudent
+   ON  tbStudent 
+   INSTEAD OF DELETE
+AS 
+BEGIN
+	--1. xoa du lieu lien quan den sv trong cac bang co tham chieu khoa ngoai,
+	-- o day la bang diem
+	DELETE FROM tbExam WHERE student_id IN (SELECT id FROM deleted)
+
+	--2. xoa sinh vien trong bang Sinh Vien
+	DELETE FROM tbStudent WHERE id IN (SELECT id FROM deleted)
+
+	--3. thong bao
+	print 'Da xoa thong tin sinh vien va cac du lieu lien quan !'
+END
+GO
