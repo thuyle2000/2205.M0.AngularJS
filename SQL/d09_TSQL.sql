@@ -25,7 +25,7 @@ GO
   ham xep loai ket qua thi dua vao thang diem 0-100:
 - A [100-90], B[89-80], C[79-65], D[64-40], E[<40]
 */
-CREATE FUNCTION [fnRange] 
+CREATE FUNCTION [fnRanking] 
 ( @diem INT )
 RETURNS VARCHAR(30)
 AS
@@ -53,4 +53,6 @@ GO
 
 -- test case : xem ket qua thi cua sinh vien, bao gom cot phan loai
 SELECT * FROM tbExam  -- chua co cot phan loai
-SELECT *, dbo.fnRange(mark) [Ranking] FROM tbExam
+SELECT *, dbo.fnRanking(mark) [Ranking] FROM tbExam
+
+GO
