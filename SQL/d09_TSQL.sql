@@ -56,3 +56,14 @@ SELECT * FROM tbExam  -- chua co cot phan loai
 SELECT *, dbo.fnRanking(mark) [Ranking] FROM tbExam
 
 GO
+
+-- demo ham windows
+SELECT * FROM tbExam ORDER BY module_id, mark DESC  -- chua co ham over
+SELECT module_id, student_id, mark,
+	RANK() OVER (PARTITION BY module_id ORDER BY mark DESC) [rank]
+	FROM tbExam ORDER BY module_id
+
+SELECT module_id, student_id, mark,
+	DENSE_RANK() OVER (PARTITION BY module_id ORDER BY mark DESC) [rank]
+	FROM tbExam ORDER BY module_id
+GO
